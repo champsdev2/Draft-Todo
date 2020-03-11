@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+  - stable
+
+
+cache:
+  directories:
+    - "node_modules"
+
+
+services:
+  - postgresql
+
+
+
+before_install:
+  - npm install
+
+before_script:
+  - psql -c 'create database testodo;' -U postgres
+
+script:
+  - npm run coverage
+
+after_success:
+  - npm run coveralls
